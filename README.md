@@ -1,0 +1,1 @@
+O banco de dados utilizado nesta aplicação é o Microsoft SQL Server Express 2019
