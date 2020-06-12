@@ -1,6 +1,6 @@
 ﻿namespace Desafio_Compuletra
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Variável de designer necessária.
