@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desafio_Compuletra.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Desafio_Compuletra.Exceptions
 
         public override string ToString()
         {
-            return InvalidValue + " não é um valor válido para moedas. Informe um valor entre 0.01 e 1";
+            return InvalidValue + " não é um valor válido para moedas. Confira ao lado os valores válidos: " + CoinValidator.ValidValues.ToString();
         }
     }
 }

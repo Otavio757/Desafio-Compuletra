@@ -1,4 +1,5 @@
 ﻿using Desafio_Compuletra.Exceptions;
+using Desafio_Compuletra.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Desafio_Compuletra.Entities
 
         public CoinSet(double value, int quantity)
         {
-            if (value <= 0 || value > 1)
+            if (CoinValidator.IsValid(value))
             {
                 throw new InvalidCoinValueException(value);
             }
@@ -54,9 +55,16 @@ namespace Desafio_Compuletra.Entities
             Quantity += quantity;
         }
 
-        public void RemoveCoins(int quantity)
+        public double RemoveCoin()
+        {
+            Quantity--;
+            return Value;
+        }
+
+        public double RemoveCoins(int quantity)
         {
             Quantity -= quantity;
+            return Value * quantity;
         }
 
         //Valor total do conjunto de moedas
