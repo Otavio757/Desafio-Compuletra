@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desafio_Compuletra.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,36 @@ namespace Desafio_Compuletra.Entities
         */
         public override List<CoinSet> GenerateChange(double value)
         {
-            throw new NotImplementedException();
+            List<CoinSet> change = new List<CoinSet>();
+            double pendingValue = value;
+
+            for (int i = coinsSet.Count - 1; i >= 0 && pendingValue > 0; i--)
+            {
+                if (coinsSet[i].Value <= pendingValue && coinsSet[i].Quantity > 0)
+                {
+                    change.Add(new CoinSet(coinsSet[i].Value, 1));
+                    pendingValue -= RemoveCoin(i);
+
+                    while (coinsSet[i].Value <= pendingValue && coinsSet[i].Quantity > 0)
+                    {
+                        change.Last().AddCoin();
+                        pendingValue -= RemoveCoin(i);
+                    }
+                }
+            }
+
+            if (pendingValue > 0)
+            {
+                //Devolve para a máquina as moedas retiradas
+                change.ForEach(delegate (CoinSet cs)
+                {
+                    AddCoins(cs);
+                });
+
+                throw new InsufficientCoinsToChangeException(value, pendingValue);
+            }
+
+            return change;
         }
     }
 }

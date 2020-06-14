@@ -51,7 +51,8 @@
     <Compile Include="Entities\ExchangeMachineDynamicAlgorithm.cs" />
     <Compile Include="Entities\ExchangeMachineGreedyAlgorithm.cs" />
     <Compile Include="Exceptions\IncompatibleCoinValuesException.cs" />
-    <Compile Include="Exceptions\InsufficientCoinsException.cs" />
+    <Compile Include="Exceptions\InsufficientCoinsToChangeException.cs" />
+    <Compile Include="Exceptions\InsufficientCoinsToWithdrawException.cs" />
     <Compile Include="Exceptions\InvalidCoinValueException.cs" />
     <Compile Include="Exceptions\InvalidCoinQuantityException.cs" />
     <Compile Include="Exceptions\MachineOverflowException.cs" />

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Desafio_Compuletra.Entities
 {
-    abstract class ExchangeMachine
+    class ExchangeMachine
     {
         protected List<CoinSet> coinsSet;
         public double TotalValue { get; private set; } //Valor total armazenado na máquina
@@ -39,30 +39,30 @@ namespace Desafio_Compuletra.Entities
         }
 
         //As moedas são inseridas em ordem crescente de valor
-        public void InsertCoins(CoinSet coins)
+        public void AddCoins(CoinSet coins)
         {
-            int pos = coinsSet.BinarySearch(coins);
+            int i = coinsSet.BinarySearch(coins);
 
-            if (pos < 0)
+            if (i < 0)
             {
-                pos = 0;
+                i = 0;
 
-                for (; pos < coinsSet.Count; pos++)
+                for (; i < coinsSet.Count; i++)
                 {
-                    if (coins.Value < coinsSet[pos].Value)
+                    if (coins.Value < coinsSet[i].Value)
                     {
                         break;
                     }
                 }
 
-                coinsSet.Insert(pos, new CoinSet(coins.Value));
+                coinsSet.Insert(i, new CoinSet(coins.Value));
             }
 
-            InsertCoinsInTheSet(pos, coins);
+            AddCoinsInTheSet(i, coins);
         }
 
         //Método auxiliar que realmente insere as moedas em um conjunto da máquina
-        private void InsertCoinsInTheSet(int pos, CoinSet coins)
+        protected void AddCoinsInTheSet(int pos, CoinSet coins)
         {
             if (coins.Quantity <= FreeSpace())
             {
@@ -105,29 +105,76 @@ namespace Desafio_Compuletra.Entities
                     //Devolve para a máquina as moedas retiradas até agora
                     temp.ForEach(delegate (CoinSet csTemp)
                     {
-                        InsertCoins(csTemp);
+                        AddCoins(csTemp);
                     });
 
-                    if (exception is InsufficientCoinsException)
+                    if (exception is InsufficientCoinsToWithdrawException)
                     {
-                        throw new InsufficientCoinsException(coinsSet[pos].Quantity, cs.Quantity, cs.Value);
+                        throw new InsufficientCoinsToWithdrawException(coinsSet[pos].Quantity, cs.Quantity, cs.Value);
                     }
 
                     else
                     {
                         //Nesse caso, a variável "pos" é negativa, pois não há um conjunto de moedas do valor solicitado
                         //Assim, a exceção capturada foi a ArgumentOutOfRangeException
-                        throw new InsufficientCoinsException(0, cs.Quantity, cs.Value);
+                        throw new InsufficientCoinsToWithdrawException(0, cs.Quantity, cs.Value);
                     }
                 }
             });
+        }
+
+        /*
+         Estudei os Algoritmos Gulosos na minha graduação, que são utilizados para otimizar o desempenho e para funcionar em hardwares mais simples, 
+         como o de uma máquina de moedas de verdade. Porém, existem situações específicas em que a seleção de moedas não é a melhor, como por exemplo 
+         no seguinte caso: precisa-se de um troco de 30 centavos e só há moedas de 25, 10 e 1 centavo. O algoritmo guloso selecionará primeiro a 
+         moeda maior (25) e depois mais 5 moedas de 1 centavo. Porém, a melhor opção seria 3 moedas de 10 centavos.
+        */
+        public List<CoinSet> GenerateChange(double value)
+        {
+            List<CoinSet> change = new List<CoinSet>();
+            double pendingValue = value;
+
+            for (int i = coinsSet.Count - 1; i >= 0 && pendingValue > 0; i--)
+            {
+                if (coinsSet[i].Value <= pendingValue && coinsSet[i].Quantity > 0)
+                {
+                    change.Add(new CoinSet(coinsSet[i].Value, 1));
+                    pendingValue -= RemoveCoin(i);
+
+                    while (coinsSet[i].Value <= pendingValue && coinsSet[i].Quantity > 0)
+                    {
+                        change.Last().AddCoin();
+                        pendingValue -= RemoveCoin(i);
+                    }
+                }
+            }
+
+            if (pendingValue > 0)
+            {
+                //Devolve para a máquina as moedas retiradas
+                change.ForEach(delegate (CoinSet cs)
+                {
+                    AddCoins(cs);
+                });
+
+                throw new InsufficientCoinsToChangeException(value, pendingValue);
+            }
+
+            return change;
+        }
+
+        //Método auxiliar para o cálculo do troco de moedas
+        protected double RemoveCoin(int pos)
+        {
+            double value = coinsSet[pos].RemoveCoin();
+            NumCoins--;
+            TotalValue -= value;
+            return value;
         }
 
         public override string ToString()
         {
             return "$" + TotalValue + " (" + NumCoins + "/" + MaximumCapacity + " moedas)";
         }
-
-        public abstract List<CoinSet> GenerateChange(double value);
     }
 }

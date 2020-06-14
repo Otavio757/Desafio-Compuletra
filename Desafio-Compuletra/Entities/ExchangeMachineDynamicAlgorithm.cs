@@ -18,7 +18,21 @@ namespace Desafio_Compuletra.Entities
         */
         public override List<CoinSet> GenerateChange(double value)
         {
-            throw new NotImplementedException();
+            int sizeCounter = (int)(value * 100);
+            int[] counter1 = new int[sizeCounter];
+            int counter2 = 0;
+
+            for (int i = 0; i < counter1.Length; i++)
+            {
+
+            }
+            return null;
+        }
+
+        //Método auxiliar que analisa as combinações de moedas e retorna a melhor
+        private List<CoinSet> BestCoinCombination(List<double> coinsCombinations, double changeValue)
+        {
+            return null;
         }
     }
 }

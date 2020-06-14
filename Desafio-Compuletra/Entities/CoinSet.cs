@@ -55,6 +55,11 @@ namespace Desafio_Compuletra.Entities
             Quantity += quantity;
         }
 
+        public void AddCoin()
+        {
+            Quantity++;
+        }
+
         public double RemoveCoins(int quantity)
         {
             if (quantity <= Quantity)
@@ -65,7 +70,7 @@ namespace Desafio_Compuletra.Entities
 
             else
             {
-                throw new InsufficientCoinsException(Quantity, quantity, Value);
+                throw new InsufficientCoinsToWithdrawException(Quantity, quantity, Value);
             }
         }
 
