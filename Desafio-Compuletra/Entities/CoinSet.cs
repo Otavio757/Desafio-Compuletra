@@ -55,16 +55,23 @@ namespace Desafio_Compuletra.Entities
             Quantity += quantity;
         }
 
-        public double RemoveCoin()
-        {
-            Quantity--;
-            return Value;
-        }
-
         public double RemoveCoins(int quantity)
         {
-            Quantity -= quantity;
-            return Value * quantity;
+            if (quantity <= Quantity)
+            {
+                Quantity -= quantity;
+                return Value * quantity;
+            }
+
+            else
+            {
+                throw new InsufficientCoinsException(Quantity, quantity, Value);
+            }
+        }
+
+        public double RemoveCoin()
+        {
+            return RemoveCoins(1);
         }
 
         //Valor total do conjunto de moedas

@@ -1,4 +1,5 @@
 ﻿using Desafio_Compuletra.Exceptions;
+using Desafio_Compuletra.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Desafio_Compuletra.Entities
 {
-    class ExchangeMachine
+    abstract class ExchangeMachine
     {
-        private List<CoinSet> coinsSet;
+        protected List<CoinSet> coinsSet;
         public double TotalValue { get; private set; } //Valor total armazenado na máquina
         public int NumCoins { get; private set; } //Número de moedas inseridas na máquina
         public int MaximumCapacity { get; private set; } //Número máximo de moedas que a máquina pode armazenar
@@ -82,9 +83,51 @@ namespace Desafio_Compuletra.Entities
             }
         }
 
+        //Saque de moedas
+        public void Withdraw(List<CoinSet> coins)
+        {
+            List<CoinSet> temp = new List<CoinSet>();
+
+            coins.ForEach(delegate (CoinSet cs)
+            {
+                int pos = coinsSet.BinarySearch(cs);
+
+                try
+                {
+                    coinsSet[pos].RemoveCoins(cs.Quantity);
+                    NumCoins -= cs.Quantity;
+                    TotalValue -= cs.TotalValue();
+                    temp.Add(cs);
+                }
+
+                catch (Exception exception)
+                {
+                    //Devolve para a máquina as moedas retiradas até agora
+                    temp.ForEach(delegate (CoinSet csTemp)
+                    {
+                        InsertCoins(csTemp);
+                    });
+
+                    if (exception is InsufficientCoinsException)
+                    {
+                        throw new InsufficientCoinsException(coinsSet[pos].Quantity, cs.Quantity, cs.Value);
+                    }
+
+                    else
+                    {
+                        //Nesse caso, a variável "pos" é negativa, pois não há um conjunto de moedas do valor solicitado
+                        //Assim, a exceção capturada foi a ArgumentOutOfRangeException
+                        throw new InsufficientCoinsException(0, cs.Quantity, cs.Value);
+                    }
+                }
+            });
+        }
+
         public override string ToString()
         {
             return "$" + TotalValue + " (" + NumCoins + "/" + MaximumCapacity + " moedas)";
         }
+
+        public abstract List<CoinSet> GenerateChange(double value);
     }
 }
