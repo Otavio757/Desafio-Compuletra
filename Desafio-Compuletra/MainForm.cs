@@ -267,11 +267,11 @@ namespace Desafio_Compuletra
             ClearInputAndShowButtons();
             Input.ReadOnly = true;
 
-            Input.AppendText("Valores válidos para as moedas:\r\n" + CoinValidator.ValidValues[0].ToString("F2"));
+            Input.AppendText("Valores válidos para as moedas:\r\n" + (int)(CoinValidator.ValidValues[0] * 100));
 
             for (int i = 1; i < CoinValidator.ValidValues.Count; i++)
             {
-                Input.AppendText(", " + CoinValidator.ValidValues[i].ToString("F2"));
+                Input.AppendText(", " + (int)(CoinValidator.ValidValues[i] * 100));
             }
         }
 

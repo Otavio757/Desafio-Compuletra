@@ -44,8 +44,8 @@ namespace Desafio_Compuletra
         {
             if (MachineCapacity.Text != "" && (ButtonBrazilianPattern.Checked || (ButtonCustomPattern.Checked && CustomPattern.Text != "")))
             {
-                //try
-                //{
+                try
+                {
                     Program.CreateMachine(int.Parse(MachineCapacity.Text));
                     Program.CreateLists();
 
@@ -79,12 +79,12 @@ namespace Desafio_Compuletra
                         }
 
                     }
-                //}
+                }
 
-                //catch
-                //{
-                  //  MessageBox.Show("Digite apenas números para definir a capacidade máxima da máquina", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                //}
+                catch
+                {
+                    MessageBox.Show("Digite apenas números para definir a capacidade máxima da máquina", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
 
             else

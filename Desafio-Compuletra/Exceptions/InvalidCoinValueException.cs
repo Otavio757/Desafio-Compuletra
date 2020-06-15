@@ -18,11 +18,11 @@ namespace Desafio_Compuletra.Exceptions
 
         public override string ToString()
         {
-            String s = InvalidValue + " não é um valor válido para moedas. Confira ao lado os valores válidos: " + CoinValidator.ValidValues[0].ToString("F2");
+            String s = (int)(InvalidValue * 100) + " não é um valor válido para moedas. Confira ao lado os valores válidos: " + (int)(CoinValidator.ValidValues[0] * 100);
 
             for (int i = 1; i < CoinValidator.ValidValues.Count; i++)
             {
-                s += ", " + CoinValidator.ValidValues[i].ToString("F2");
+                s += ", " + (int)(CoinValidator.ValidValues[i] * 100);
             }
 
             return s;
