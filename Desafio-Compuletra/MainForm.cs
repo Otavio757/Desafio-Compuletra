@@ -1,5 +1,6 @@
 ﻿using Desafio_Compuletra.Entities;
 using Desafio_Compuletra.Exceptions;
+using Desafio_Compuletra.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Desafio_Compuletra
 {
@@ -62,7 +64,7 @@ namespace Desafio_Compuletra
 
         private void SubmitDeposit(object sender, EventArgs eventArgs)
         {
-            String[] values = Input.Text.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            String[] values = Input.Text.Replace(" ", "").Split(new[] { "\r\n" }, StringSplitOptions.None);
             List<CoinSet> coins = new List<CoinSet>();
 
             foreach (String s in values)
@@ -96,6 +98,11 @@ namespace Desafio_Compuletra
             try
             {
                 Program.ExchangeMachine.AddCoins(coins);
+                Program.Deposits.Add(coins);
+
+                Program.SaveExchangeMachineToXML();
+                Program.SaveDepositsToXML();
+
                 MessageBox.Show("Depósito efetuado com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
@@ -133,7 +140,7 @@ namespace Desafio_Compuletra
 
         private void SubmitWithdraw(object sender, EventArgs eventArgs)
         {
-            String[] values = Input.Text.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            String[] values = Input.Text.Replace(" ", "").Split(new[] { "\r\n" }, StringSplitOptions.None);
             List<CoinSet> coins = new List<CoinSet>();
 
             foreach (String s in values)
@@ -158,7 +165,12 @@ namespace Desafio_Compuletra
             try
             {
                 Program.ExchangeMachine.Withdraw(coins);
+                Program.Withdraws.Add(coins);
                 Summary.Text = Program.ExchangeMachine.ToString();
+
+                Program.SaveExchangeMachineToXML();
+                Program.SaveWithdrawsToXML();
+
                 MessageBox.Show("Saque efetuado com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
@@ -198,7 +210,7 @@ namespace Desafio_Compuletra
         {
             try
             {
-                decimal value = decimal.Parse(Input.Text);
+                decimal value = decimal.Parse(Input.Text.Replace(" ", ""));
 
                 try
                 {
@@ -211,6 +223,12 @@ namespace Desafio_Compuletra
                     }
 
                     Summary.Text = Program.ExchangeMachine.ToString();
+
+                    Program.Changes.Add(change);
+
+                    Program.SaveExchangeMachineToXML();
+                    Program.SaveChangesToXML();
+
                     MessageBox.Show(changeDetails, "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -240,6 +258,63 @@ namespace Desafio_Compuletra
             {
                 Input.Text = "";
             }
+        }
+
+        private void CoinPattern_Click(object sender, EventArgs e)
+        {
+            ClearInputAndShowButtons();
+            Input.ReadOnly = true;
+
+            Input.AppendText("Valores válidos para as moedas:\r\n" + CoinValidator.ValidValues[0].ToString("F2"));
+
+            for (int i = 1; i < CoinValidator.ValidValues.Count; i++)
+            {
+                Input.AppendText(", " + CoinValidator.ValidValues[i].ToString("F2"));
+            }
+        }
+
+        private void Report(List<List<CoinSet>> list, String reportType, String errorMessage)
+        {
+            ClearInputAndShowButtons();
+            Input.ReadOnly = true;
+
+            if (list.Count > 0)
+            {
+                int number = 1;
+
+                foreach (List<CoinSet> sublist in list)
+                {
+                    Input.AppendText(reportType.ToUpper() + " " + number + ":\r\n");
+
+                    foreach (CoinSet cs in sublist)
+                    {
+                        Input.AppendText(cs.ToString() + "\r\n");
+                    }
+
+                    Input.AppendText("\r\n");
+                    number++;
+                }
+            }
+
+            else
+            {
+                Input.AppendText(errorMessage);
+            }
+        }
+
+        private void DepositReport_Click(object sender, EventArgs e)
+        {
+            Report(Program.Deposits, "depósito", "Nenhum depósito foi realizado até agora");
+        }
+
+        private void WithdrawReport_Click(object sender, EventArgs e)
+        {
+            Report(Program.Withdraws, "saque", "Nenhum saque foi realizado até agora");
+        }
+
+        private void ChangeReport_Click(object sender, EventArgs e)
+        {
+            Report(Program.Changes, "troco", "Nenhum troco foi gerado até agora");
         }
     }
 }

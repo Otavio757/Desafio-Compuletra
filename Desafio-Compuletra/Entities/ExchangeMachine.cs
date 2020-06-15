@@ -8,18 +8,25 @@ using System.Threading.Tasks;
 
 namespace Desafio_Compuletra.Entities
 {
-    class ExchangeMachine
+    public class ExchangeMachine
     {
-        protected List<CoinSet> coinsSet;
-        public decimal TotalValue { get; private set; } //Valor total armazenado na máquina
-        public int NumCoins { get; private set; } //Número de moedas inseridas na máquina
-        public int MaximumCapacity { get; private set; } //Número máximo de moedas que a máquina pode armazenar
+        public List<CoinSet> CoinsSet { get; set; } //Conjuntos de moedas
+        public decimal TotalValue { get; set; } //Valor total armazenado na máquina
+        public int NumCoins { get; set; } //Número de moedas inseridas na máquina
+        public int MaximumCapacity { get; set; } //Número máximo de moedas que a máquina pode armazenar
         
         public ExchangeMachine(int maximumCapacity)
         {
             MaximumCapacity = maximumCapacity;
             TotalValue = 0;
-            coinsSet = new List<CoinSet>();
+            CoinsSet = new List<CoinSet>();
+        }
+
+        public ExchangeMachine()
+        {
+            MaximumCapacity = 1000; //Valor padrão
+            TotalValue = 0;
+            CoinsSet = new List<CoinSet>();
         }
 
         public bool IsEmpty()
@@ -43,21 +50,21 @@ namespace Desafio_Compuletra.Entities
         {
             foreach (CoinSet cs in coins)
             {
-                int i = coinsSet.BinarySearch(cs);
+                int i = CoinsSet.BinarySearch(cs);
 
                 if (i < 0)
                 {
                     i = 0;
 
-                    for (; i < coinsSet.Count; i++)
+                    for (; i < CoinsSet.Count; i++)
                     {
-                        if (cs.Value < coinsSet[i].Value)
+                        if (cs.Value < CoinsSet[i].Value)
                         {
                             break;
                         }
                     }
 
-                    coinsSet.Insert(i, new CoinSet(cs.Value));
+                    CoinsSet.Insert(i, new CoinSet(cs.Value));
                 }
 
                 AddCoinsInTheSet(i, cs);
@@ -69,7 +76,7 @@ namespace Desafio_Compuletra.Entities
         {
             if (coins.Quantity <= FreeSpace())
             {
-                coinsSet[pos].AddCoins(coins);
+                CoinsSet[pos].AddCoins(coins);
                 NumCoins += coins.Quantity;
                 TotalValue += coins.TotalValue();
             }
@@ -78,7 +85,7 @@ namespace Desafio_Compuletra.Entities
             {
                 //Nesse caso insere somente as moedas que ainda cabem na máquina e lança uma exceção
                 int freeSpace = FreeSpace();
-                coinsSet[pos].AddCoins(freeSpace);
+                CoinsSet[pos].AddCoins(freeSpace);
                 NumCoins = MaximumCapacity;
                 TotalValue += freeSpace * coins.Value;
 
@@ -93,11 +100,11 @@ namespace Desafio_Compuletra.Entities
 
             foreach (CoinSet cs in coins)
             {
-                int pos = coinsSet.BinarySearch(cs);
+                int pos = CoinsSet.BinarySearch(cs);
 
                 try
                 {
-                    coinsSet[pos].RemoveCoins(cs.Quantity);
+                    CoinsSet[pos].RemoveCoins(cs.Quantity);
                     NumCoins -= cs.Quantity;
                     TotalValue -= cs.TotalValue();
                     temp.Add(cs);
@@ -109,7 +116,7 @@ namespace Desafio_Compuletra.Entities
 
                     if (exception is InsufficientCoinsToWithdrawException)
                     {
-                        throw new InsufficientCoinsToWithdrawException(coinsSet[pos].Quantity, cs.Quantity, cs.Value);
+                        throw new InsufficientCoinsToWithdrawException(CoinsSet[pos].Quantity, cs.Quantity, cs.Value);
                     }
 
                     else
@@ -133,14 +140,14 @@ namespace Desafio_Compuletra.Entities
             List<CoinSet> change = new List<CoinSet>();
             decimal pendingValue = value;
 
-            for (int i = coinsSet.Count - 1; i >= 0 && pendingValue > 0; i--)
+            for (int i = CoinsSet.Count - 1; i >= 0 && pendingValue > 0; i--)
             {
-                if (coinsSet[i].Value <= pendingValue && coinsSet[i].Quantity > 0)
+                if (CoinsSet[i].Value <= pendingValue && CoinsSet[i].Quantity > 0)
                 {
-                    change.Add(new CoinSet(coinsSet[i].Value, 1));
+                    change.Add(new CoinSet(CoinsSet[i].Value, 1));
                     pendingValue -= RemoveCoin(i);
 
-                    while (coinsSet[i].Value <= pendingValue && coinsSet[i].Quantity > 0)
+                    while (CoinsSet[i].Value <= pendingValue && CoinsSet[i].Quantity > 0)
                     {
                         change.Last().AddCoin();
                         pendingValue -= RemoveCoin(i);
@@ -160,7 +167,7 @@ namespace Desafio_Compuletra.Entities
         //Método auxiliar para o cálculo do troco de moedas
         protected decimal RemoveCoin(int pos)
         {
-            decimal value = coinsSet[pos].RemoveCoin();
+            decimal value = CoinsSet[pos].RemoveCoin();
             NumCoins--;
             TotalValue -= value;
             return value;
@@ -174,13 +181,13 @@ namespace Desafio_Compuletra.Entities
 
         public String Status()
         {
-            if (coinsSet.Count > 0)
+            if (CoinsSet.Count > 0)
             {
-                String s = coinsSet[0].ToString();
+                String s = CoinsSet[0].ToString();
 
-                for (int i = 1; i < coinsSet.Count; i++)
+                for (int i = 1; i < CoinsSet.Count; i++)
                 {
-                    s += "\r\n" + coinsSet[i].ToString();
+                    s += "\r\n" + CoinsSet[i].ToString();
                 }
 
                 return s;

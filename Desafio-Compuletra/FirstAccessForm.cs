@@ -1,4 +1,5 @@
 ﻿using Desafio_Compuletra.Validators;
+using Desafio_Compuletra.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Desafio_Compuletra
 {
@@ -44,8 +47,9 @@ namespace Desafio_Compuletra
                 try
                 {
                     Program.CreateMachine(int.Parse(MachineCapacity.Text));
+                    Program.CreateLists();
 
-                    if (ButtonBrazilianPattern.Checked)
+                if (ButtonBrazilianPattern.Checked)
                     {
                         CoinValidator.BrazilianPattern();
                         OpenMainForm();
@@ -64,7 +68,7 @@ namespace Desafio_Compuletra
                                 decimal value = (decimal)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
                                 CoinValidator.AddValue(value);
                             }
-
+            
                             OpenMainForm();
                         }
 
@@ -91,6 +95,12 @@ namespace Desafio_Compuletra
 
         private void OpenMainForm()
         {
+            //Antes de tudo, cria a pasta da aplicação no diretório dos Documentos
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App";
+            Directory.CreateDirectory(path);
+            Program.SaveExchangeMachineToXML();
+            Program.SaveCoinValidValuesToXML();
+
             this.Hide();
             var mainForm = new MainForm();
             mainForm.Closed += (s, args) => this.Close();

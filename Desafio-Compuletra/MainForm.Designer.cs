@@ -37,6 +37,10 @@
             this.ButtonStatus = new System.Windows.Forms.Button();
             this.ButtonSubmit = new System.Windows.Forms.Button();
             this.ButtonHelp = new System.Windows.Forms.Button();
+            this.DepositReport = new System.Windows.Forms.Button();
+            this.WithdrawReport = new System.Windows.Forms.Button();
+            this.ChangeReport = new System.Windows.Forms.Button();
+            this.CoinPattern = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -90,7 +94,7 @@
             this.Input.Multiline = true;
             this.Input.Name = "Input";
             this.Input.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Input.Size = new System.Drawing.Size(441, 216);
+            this.Input.Size = new System.Drawing.Size(441, 290);
             this.Input.TabIndex = 10;
             this.Input.Visible = false;
             this.Input.Enter += new System.EventHandler(this.Input_Enter);
@@ -119,7 +123,7 @@
             // ButtonSubmit
             // 
             this.ButtonSubmit.Font = new System.Drawing.Font("Segoe UI Light", 14F);
-            this.ButtonSubmit.Location = new System.Drawing.Point(439, 251);
+            this.ButtonSubmit.Location = new System.Drawing.Point(433, 322);
             this.ButtonSubmit.Name = "ButtonSubmit";
             this.ButtonSubmit.Size = new System.Drawing.Size(158, 49);
             this.ButtonSubmit.TabIndex = 15;
@@ -130,7 +134,7 @@
             // ButtonHelp
             // 
             this.ButtonHelp.Font = new System.Drawing.Font("Segoe UI Light", 14F);
-            this.ButtonHelp.Location = new System.Drawing.Point(608, 251);
+            this.ButtonHelp.Location = new System.Drawing.Point(602, 322);
             this.ButtonHelp.Name = "ButtonHelp";
             this.ButtonHelp.Size = new System.Drawing.Size(158, 49);
             this.ButtonHelp.TabIndex = 16;
@@ -139,11 +143,59 @@
             this.ButtonHelp.Visible = false;
             this.ButtonHelp.Click += new System.EventHandler(this.ButtonHelp_Click);
             // 
+            // DepositReport
+            // 
+            this.DepositReport.Font = new System.Drawing.Font("Segoe UI Light", 14F);
+            this.DepositReport.Location = new System.Drawing.Point(43, 322);
+            this.DepositReport.Name = "DepositReport";
+            this.DepositReport.Size = new System.Drawing.Size(126, 63);
+            this.DepositReport.TabIndex = 18;
+            this.DepositReport.Text = "Relatório de Depósitos";
+            this.DepositReport.UseVisualStyleBackColor = true;
+            this.DepositReport.Click += new System.EventHandler(this.DepositReport_Click);
+            // 
+            // WithdrawReport
+            // 
+            this.WithdrawReport.Font = new System.Drawing.Font("Segoe UI Light", 14F);
+            this.WithdrawReport.Location = new System.Drawing.Point(180, 249);
+            this.WithdrawReport.Name = "WithdrawReport";
+            this.WithdrawReport.Size = new System.Drawing.Size(126, 63);
+            this.WithdrawReport.TabIndex = 19;
+            this.WithdrawReport.Text = "Relatório de Saques";
+            this.WithdrawReport.UseVisualStyleBackColor = true;
+            this.WithdrawReport.Click += new System.EventHandler(this.WithdrawReport_Click);
+            // 
+            // ChangeReport
+            // 
+            this.ChangeReport.Font = new System.Drawing.Font("Segoe UI Light", 14F);
+            this.ChangeReport.Location = new System.Drawing.Point(180, 322);
+            this.ChangeReport.Name = "ChangeReport";
+            this.ChangeReport.Size = new System.Drawing.Size(126, 63);
+            this.ChangeReport.TabIndex = 20;
+            this.ChangeReport.Text = "Relatório de Trocos";
+            this.ChangeReport.UseVisualStyleBackColor = true;
+            this.ChangeReport.Click += new System.EventHandler(this.ChangeReport_Click);
+            // 
+            // CoinPattern
+            // 
+            this.CoinPattern.Font = new System.Drawing.Font("Segoe UI Light", 14F);
+            this.CoinPattern.Location = new System.Drawing.Point(43, 249);
+            this.CoinPattern.Name = "CoinPattern";
+            this.CoinPattern.Size = new System.Drawing.Size(126, 63);
+            this.CoinPattern.TabIndex = 21;
+            this.CoinPattern.Text = "Padrão de Moedas";
+            this.CoinPattern.UseVisualStyleBackColor = true;
+            this.CoinPattern.Click += new System.EventHandler(this.CoinPattern_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 312);
+            this.ClientSize = new System.Drawing.Size(837, 424);
+            this.Controls.Add(this.CoinPattern);
+            this.Controls.Add(this.ChangeReport);
+            this.Controls.Add(this.WithdrawReport);
+            this.Controls.Add(this.DepositReport);
             this.Controls.Add(this.ButtonHelp);
             this.Controls.Add(this.ButtonSubmit);
             this.Controls.Add(this.ButtonStatus);
@@ -172,6 +224,10 @@
         private System.Windows.Forms.Button ButtonStatus;
         private System.Windows.Forms.Button ButtonSubmit;
         private System.Windows.Forms.Button ButtonHelp;
+        private System.Windows.Forms.Button DepositReport;
+        private System.Windows.Forms.Button WithdrawReport;
+        private System.Windows.Forms.Button ChangeReport;
+        private System.Windows.Forms.Button CoinPattern;
     }
 }
 

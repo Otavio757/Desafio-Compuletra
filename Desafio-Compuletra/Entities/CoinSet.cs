@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Desafio_Compuletra.Entities
 {
-    class CoinSet : IComparable
+    public class CoinSet : IComparable
     {
-        public decimal Value { get; private set; } //Valor das moedas do conjunto
-        public int Quantity { get; private set; } //Quantidade de moedas do conjunto
+        public decimal Value { get; set; } //Valor das moedas do conjunto
+        public int Quantity { get; set; } //Quantidade de moedas do conjunto
 
         public CoinSet(decimal value, int quantity)
         {
@@ -35,6 +35,12 @@ namespace Desafio_Compuletra.Entities
         //Construtor que cria um conjunto de moedas vazio
         public CoinSet(decimal value) : this(value, 0)
         {
+        }
+
+        public CoinSet()
+        {
+            Value = 1;
+            Quantity = 0;
         }
 
         public void AddCoins(CoinSet coins)

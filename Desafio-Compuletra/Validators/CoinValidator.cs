@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Desafio_Compuletra.Validators
 {
-    static class CoinValidator
+    public static class CoinValidator
     {
         //Lista com os possíveis valores de moeda
-        public static List<decimal> ValidValues { get; private set; }
+        public static List<decimal> ValidValues { get; set; }
 
         //Preenche a lista com o padrão brasileiro de moedas
         public static void BrazilianPattern()

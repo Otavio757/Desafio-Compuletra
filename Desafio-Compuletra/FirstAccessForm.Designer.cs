@@ -78,10 +78,10 @@
             this.ButtonCustomPattern.Font = new System.Drawing.Font("Segoe UI Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ButtonCustomPattern.Location = new System.Drawing.Point(38, 275);
             this.ButtonCustomPattern.Name = "ButtonCustomPattern";
-            this.ButtonCustomPattern.Size = new System.Drawing.Size(204, 29);
+            this.ButtonCustomPattern.Size = new System.Drawing.Size(200, 29);
             this.ButtonCustomPattern.TabIndex = 3;
             this.ButtonCustomPattern.TabStop = true;
-            this.ButtonCustomPattern.Text = "Padrão Personalizado:";
+            this.ButtonCustomPattern.Text = "Padrão Personalizado";
             this.ButtonCustomPattern.UseVisualStyleBackColor = true;
             this.ButtonCustomPattern.CheckedChanged += new System.EventHandler(this.ButtonCustomPattern_CheckedChanged);
             // 
