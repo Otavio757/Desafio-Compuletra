@@ -11,7 +11,7 @@ namespace Desafio_Compuletra.Entities
     class ExchangeMachine
     {
         protected List<CoinSet> coinsSet;
-        public double TotalValue { get; private set; } //Valor total armazenado na máquina
+        public decimal TotalValue { get; private set; } //Valor total armazenado na máquina
         public int NumCoins { get; private set; } //Número de moedas inseridas na máquina
         public int MaximumCapacity { get; private set; } //Número máximo de moedas que a máquina pode armazenar
         
@@ -128,10 +128,10 @@ namespace Desafio_Compuletra.Entities
          no seguinte caso: precisa-se de um troco de 30 centavos e só há moedas de 25, 10 e 1 centavo. O algoritmo guloso selecionará primeiro a 
          moeda maior (25) e depois mais 5 moedas de 1 centavo. Porém, a melhor opção seria 3 moedas de 10 centavos.
         */
-        public List<CoinSet> GenerateChange(double value)
+        public List<CoinSet> GenerateChange(decimal value)
         {
             List<CoinSet> change = new List<CoinSet>();
-            double pendingValue = value;
+            decimal pendingValue = value;
 
             for (int i = coinsSet.Count - 1; i >= 0 && pendingValue > 0; i--)
             {
@@ -158,9 +158,9 @@ namespace Desafio_Compuletra.Entities
         }
 
         //Método auxiliar para o cálculo do troco de moedas
-        protected double RemoveCoin(int pos)
+        protected decimal RemoveCoin(int pos)
         {
-            double value = coinsSet[pos].RemoveCoin();
+            decimal value = coinsSet[pos].RemoveCoin();
             NumCoins--;
             TotalValue -= value;
             return value;

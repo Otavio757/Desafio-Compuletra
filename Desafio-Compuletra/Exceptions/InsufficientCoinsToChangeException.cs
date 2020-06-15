@@ -8,10 +8,10 @@ namespace Desafio_Compuletra.Exceptions
 {
     class InsufficientCoinsToChangeException : Exception
     {
-        public double TotalValue { get; private set; } //Valor total do troco
-        public double MissingValue { get; private set; } //Valor que faltou
+        public decimal TotalValue { get; private set; } //Valor total do troco
+        public decimal MissingValue { get; private set; } //Valor que faltou
 
-        public InsufficientCoinsToChangeException(double totalValue, double missingValue)
+        public InsufficientCoinsToChangeException(decimal totalValue, decimal missingValue)
         {
             TotalValue = totalValue;
             MissingValue = missingValue;

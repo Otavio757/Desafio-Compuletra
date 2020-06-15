@@ -8,9 +8,9 @@ namespace Desafio_Compuletra.Exceptions
 {
     class InvalidCoinQuantityException : Exception
     {
-        public double InvalidQuantity { get; private set; }
+        public decimal InvalidQuantity { get; private set; }
 
-        public InvalidCoinQuantityException(double invalidQuantity)
+        public InvalidCoinQuantityException(decimal invalidQuantity)
         {
             InvalidQuantity = invalidQuantity;
         }

@@ -10,9 +10,9 @@ namespace Desafio_Compuletra.Exceptions
     {
         public int CoinsAvailable { get; private set; }
         public int IntendedWithdraw { get; private set; }
-        public double CoinValue { get; private set; }
+        public decimal CoinValue { get; private set; }
 
-        public InsufficientCoinsToWithdrawException(int coinsAvailable, int intendedWithdraw, double coinValue)
+        public InsufficientCoinsToWithdrawException(int coinsAvailable, int intendedWithdraw, decimal coinValue)
         {
             CoinsAvailable = coinsAvailable;
             IntendedWithdraw = intendedWithdraw;

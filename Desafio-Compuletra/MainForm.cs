@@ -72,7 +72,7 @@ namespace Desafio_Compuletra
                 try
                 {
                     int cents = int.Parse(split[0]);
-                    double value = (double)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
+                    decimal value = (decimal)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
                     int quantity = int.Parse(split[1]);
                     coins.Add(new CoinSet(value, quantity));           
                 }
@@ -143,7 +143,7 @@ namespace Desafio_Compuletra
                 try
                 {
                     int cents = int.Parse(split[0]);
-                    double value = (double)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
+                    decimal value = (decimal)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
                     int quantity = int.Parse(split[1]);
                     coins.Add(new CoinSet(value, quantity));
                 }
@@ -198,7 +198,7 @@ namespace Desafio_Compuletra
         {
             try
             {
-                double value = double.Parse(Input.Text);
+                decimal value = decimal.Parse(Input.Text);
 
                 try
                 {

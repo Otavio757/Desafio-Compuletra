@@ -61,7 +61,7 @@ namespace Desafio_Compuletra
                             foreach (String s in values)
                             {
                                 int cents = int.Parse(s);
-                                double value = (double)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
+                                decimal value = (decimal)cents / 100; //Converte o valor de centavos inteiro para decimal (exemplo: 50 centavos são 0.5);
                                 CoinValidator.AddValue(value);
                             }
 

@@ -9,22 +9,22 @@ namespace Desafio_Compuletra.Validators
     static class CoinValidator
     {
         //Lista com os possíveis valores de moeda
-        public static List<double> ValidValues { get; private set; }
+        public static List<decimal> ValidValues { get; private set; }
 
         //Preenche a lista com o padrão brasileiro de moedas
         public static void BrazilianPattern()
         {
-            ValidValues = new List<double> { 0.01, 0.05, 0.1, 0.25, 0.50, 1 };
+            ValidValues = new List<decimal> { (decimal)0.01, (decimal)0.05, (decimal)0.1, (decimal)0.25, (decimal)0.50, 1 };
         }
 
         //Cria um padrão em branco, isto é, sem valores inicializados
         public static void BlankPattern()
         {
-            ValidValues = new List<double>();
+            ValidValues = new List<decimal>();
         }
 
         //Adiciona um novo valor válido na lista, mantendo a ordem crescente. Se o valor já estiver na lista, nada acontece (nesse caso não faz sentido ter valores duplicados)
-        public static void AddValue(double value)
+        public static void AddValue(decimal value)
         {
             if (!ValidValues.Contains(value))
             {
@@ -43,13 +43,13 @@ namespace Desafio_Compuletra.Validators
         }
 
         //Remove um valor específico da lista. Se esse valor não estiver na lista, nada acontece
-        public static void RemoveValue(double value)
+        public static void RemoveValue(decimal value)
         {
             ValidValues.Remove(value);
         }
 
         //Verifica se o valor passado como parâmetro é válido
-        public static bool IsValid(double value)
+        public static bool IsValid(decimal value)
         {
             return ValidValues.Contains(value);
         }

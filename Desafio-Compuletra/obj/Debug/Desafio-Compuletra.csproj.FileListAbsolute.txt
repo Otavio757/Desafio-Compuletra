@@ -5,6 +5,5 @@ C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\De
 C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\Desafio-Compuletra\Desafio-Compuletra\bin\Debug\Desafio-Compuletra.pdb
 C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\Desafio-Compuletra\Desafio-Compuletra\obj\Debug\Desafio-Compuletra.exe
 C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\Desafio-Compuletra\Desafio-Compuletra\obj\Debug\Desafio-Compuletra.pdb
-C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\Desafio-Compuletra\Desafio-Compuletra\obj\Debug\Desafio-Compuletra.csprojAssemblyReference.cache
 C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\Desafio-Compuletra\Desafio-Compuletra\obj\Debug\Desafio_Compuletra.FirstAccessForm.resources
 C:\Users\otavi\OneDrive\Arquivos de PCs\Surface\Documentos\Desafio Compuletra\Desafio-Compuletra\Desafio-Compuletra\obj\Debug\Desafio_Compuletra.MainForm.resources

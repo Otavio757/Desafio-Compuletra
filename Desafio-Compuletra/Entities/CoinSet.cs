@@ -10,10 +10,10 @@ namespace Desafio_Compuletra.Entities
 {
     class CoinSet : IComparable
     {
-        public double Value { get; private set; } //Valor das moedas do conjunto
+        public decimal Value { get; private set; } //Valor das moedas do conjunto
         public int Quantity { get; private set; } //Quantidade de moedas do conjunto
 
-        public CoinSet(double value, int quantity)
+        public CoinSet(decimal value, int quantity)
         {
             if (!CoinValidator.IsValid(value))
             {
@@ -33,7 +33,7 @@ namespace Desafio_Compuletra.Entities
         }
 
         //Construtor que cria um conjunto de moedas vazio
-        public CoinSet(double value) : this(value, 0)
+        public CoinSet(decimal value) : this(value, 0)
         {
         }
 
@@ -60,7 +60,7 @@ namespace Desafio_Compuletra.Entities
             Quantity++;
         }
 
-        public double RemoveCoins(int quantity)
+        public decimal RemoveCoins(int quantity)
         {
             if (quantity <= Quantity)
             {
@@ -74,13 +74,13 @@ namespace Desafio_Compuletra.Entities
             }
         }
 
-        public double RemoveCoin()
+        public decimal RemoveCoin()
         {
             return RemoveCoins(1);
         }
 
         //Valor total do conjunto de moedas
-        public double TotalValue()
+        public decimal TotalValue()
         {
             return Value * Quantity;
         }

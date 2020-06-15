@@ -8,10 +8,10 @@ namespace Desafio_Compuletra.Exceptions
 {
     class IncompatibleCoinValuesException : Exception
     {
-        public double Value1 { get; private set; }
-        public double Value2 { get; private set; }
+        public decimal Value1 { get; private set; }
+        public decimal Value2 { get; private set; }
 
-        public IncompatibleCoinValuesException(double value1, double value2)
+        public IncompatibleCoinValuesException(decimal value1, decimal value2)
         {
             Value1 = value1;
             Value2 = value2;
