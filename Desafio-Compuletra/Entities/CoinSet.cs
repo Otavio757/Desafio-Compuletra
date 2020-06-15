@@ -15,7 +15,7 @@ namespace Desafio_Compuletra.Entities
 
         public CoinSet(double value, int quantity)
         {
-            if (CoinValidator.IsValid(value))
+            if (!CoinValidator.IsValid(value))
             {
                 throw new InvalidCoinValueException(value);
             }
@@ -87,7 +87,7 @@ namespace Desafio_Compuletra.Entities
 
         public override String ToString()
         {
-            String s = "$" + TotalValue() + " (" + Quantity + " moedas)";
+            String s = Quantity + " moedas de $" + Value.ToString("F2") + " (total $" + TotalValue().ToString("F2") + ")";
 
             if (Quantity == 1)
             {

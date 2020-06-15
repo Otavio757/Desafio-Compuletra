@@ -39,29 +39,32 @@ namespace Desafio_Compuletra.Entities
         }
 
         //As moedas são inseridas em ordem crescente de valor
-        public void AddCoins(CoinSet coins)
+        public void AddCoins(List<CoinSet> coins)
         {
-            int i = coinsSet.BinarySearch(coins);
-
-            if (i < 0)
+            coins.ForEach(delegate (CoinSet cs)
             {
-                i = 0;
+                int i = coinsSet.BinarySearch(cs);
 
-                for (; i < coinsSet.Count; i++)
+                if (i < 0)
                 {
-                    if (coins.Value < coinsSet[i].Value)
+                    i = 0;
+
+                    for (; i < coinsSet.Count; i++)
                     {
-                        break;
+                        if (cs.Value < coinsSet[i].Value)
+                        {
+                            break;
+                        }
                     }
+
+                    coinsSet.Insert(i, new CoinSet(cs.Value));
                 }
 
-                coinsSet.Insert(i, new CoinSet(coins.Value));
-            }
-
-            AddCoinsInTheSet(i, coins);
+                AddCoinsInTheSet(i, cs);
+            });
         }
 
-        //Método auxiliar que realmente insere as moedas em um conjunto da máquina
+        //Método auxiliar que realmente insere um conjunto de moedas na máquina
         protected void AddCoinsInTheSet(int pos, CoinSet coins)
         {
             if (coins.Quantity <= FreeSpace())
@@ -102,11 +105,7 @@ namespace Desafio_Compuletra.Entities
 
                 catch (Exception exception)
                 {
-                    //Devolve para a máquina as moedas retiradas até agora
-                    temp.ForEach(delegate (CoinSet csTemp)
-                    {
-                        AddCoins(csTemp);
-                    });
+                    AddCoins(temp); //Devolve para a máquina as moedas retiradas até agora
 
                     if (exception is InsufficientCoinsToWithdrawException)
                     {
@@ -150,13 +149,8 @@ namespace Desafio_Compuletra.Entities
             }
 
             if (pendingValue > 0)
-            {
-                //Devolve para a máquina as moedas retiradas
-                change.ForEach(delegate (CoinSet cs)
-                {
-                    AddCoins(cs);
-                });
-
+            {     
+                AddCoins(change); //Devolve para a máquina as moedas retiradas
                 throw new InsufficientCoinsToChangeException(value, pendingValue);
             }
 
@@ -174,7 +168,20 @@ namespace Desafio_Compuletra.Entities
 
         public override string ToString()
         {
-            return "$" + TotalValue + " (" + NumCoins + "/" + MaximumCapacity + " moedas)";
+            return "Saldo: $" + TotalValue.ToString("F2") + "  " +
+                    NumCoins + "/" + MaximumCapacity + " moedas";
+        }
+
+        public String Status()
+        {
+            String s = coinsSet[0].ToString();
+
+            for (int i = 1; i < coinsSet.Count; i++)
+            {
+                s += "\r\n" + coinsSet[i].ToString();
+            }
+
+            return s;
         }
     }
 }
