@@ -1,1 +1,1 @@
-O banco de dados utilizado nesta aplicação é o Microsoft SQL Server Express 2019
+Os arquivos de dados são salvos na pasta Documentos/Exchange Machine App
