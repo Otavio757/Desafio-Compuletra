@@ -44,8 +44,8 @@ namespace Desafio_Compuletra
         {
             if (MachineCapacity.Text != "" && (ButtonBrazilianPattern.Checked || (ButtonCustomPattern.Checked && CustomPattern.Text != "")))
             {
-                try
-                {
+                //try
+                //{
                     Program.CreateMachine(int.Parse(MachineCapacity.Text));
                     Program.CreateLists();
 
@@ -79,12 +79,12 @@ namespace Desafio_Compuletra
                         }
 
                     }
-                }
+                //}
 
-                catch
-                {
-                    MessageBox.Show("Digite apenas números para definir a capacidade máxima da máquina", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                //catch
+                //{
+                  //  MessageBox.Show("Digite apenas números para definir a capacidade máxima da máquina", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //}
             }
 
             else
@@ -98,8 +98,8 @@ namespace Desafio_Compuletra
             //Antes de tudo, cria a pasta da aplicação no diretório dos Documentos
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App";
             Directory.CreateDirectory(path);
-            Program.SaveExchangeMachineToXML();
-            Program.SaveCoinValidValuesToXML();
+            Program.SaveDataToXML(typeof(ExchangeMachine), "Exchange Machine.xml", Program.ExchangeMachine);
+            Program.SaveDataToXML(typeof(List<decimal>), "Coin Valid Values.xml", CoinValidator.ValidValues);
 
             this.Hide();
             var mainForm = new MainForm();

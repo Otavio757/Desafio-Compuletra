@@ -100,8 +100,8 @@ namespace Desafio_Compuletra
                 Program.ExchangeMachine.AddCoins(coins);
                 Program.Deposits.Add(coins);
 
-                Program.SaveExchangeMachineToXML();
-                Program.SaveDepositsToXML();
+                Program.SaveDataToXML(typeof(ExchangeMachine), "Exchange Machine.xml", Program.ExchangeMachine);
+                Program.SaveDataToXML(typeof(List<List<CoinSet>>), "Deposits.xml", Program.Deposits);
 
                 MessageBox.Show("Depósito efetuado com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -168,8 +168,8 @@ namespace Desafio_Compuletra
                 Program.Withdraws.Add(coins);
                 Summary.Text = Program.ExchangeMachine.ToString();
 
-                Program.SaveExchangeMachineToXML();
-                Program.SaveWithdrawsToXML();
+                Program.SaveDataToXML(typeof(ExchangeMachine), "Exchange Machine.xml", Program.ExchangeMachine);
+                Program.SaveDataToXML(typeof(List<List<CoinSet>>), "Withdraws.xml", Program.Withdraws);
 
                 MessageBox.Show("Saque efetuado com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -185,6 +185,8 @@ namespace Desafio_Compuletra
         private void ButtonStatus_Click(object sender, EventArgs e)
         {
             ClearInputAndShowButtons();
+            ButtonSubmit.Visible = false;
+            ButtonHelp.Visible = false;
             Input.ReadOnly = true;
             Input.AppendText(Program.ExchangeMachine.Status());
         }
@@ -226,8 +228,8 @@ namespace Desafio_Compuletra
 
                     Program.Changes.Add(change);
 
-                    Program.SaveExchangeMachineToXML();
-                    Program.SaveChangesToXML();
+                    Program.SaveDataToXML(typeof(ExchangeMachine), "Exchange Machine.xml", Program.ExchangeMachine);
+                    Program.SaveDataToXML(typeof(List<List<CoinSet>>), "Changes.xml", Program.Changes);
 
                     MessageBox.Show(changeDetails, "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -276,6 +278,8 @@ namespace Desafio_Compuletra
         private void Report(List<List<CoinSet>> list, String reportType, String errorMessage)
         {
             ClearInputAndShowButtons();
+            ButtonSubmit.Visible = false;
+            ButtonHelp.Visible = false;
             Input.ReadOnly = true;
 
             if (list.Count > 0)

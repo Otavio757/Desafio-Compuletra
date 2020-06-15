@@ -31,22 +31,22 @@ namespace Desafio_Compuletra
             if (File.Exists(pathDataFile + "Exchange Machine.xml"))
             {
                 CreateLists();
-                LoadExchangeMachineIntoXML();
-                LoadCoinValidValuesIntoXML();
+                ExchangeMachine = (ExchangeMachine)LoadDataFromXML(typeof(ExchangeMachine), "Exchange Machine.xml");
+                CoinValidator.ValidValues = (List<decimal>)LoadDataFromXML(typeof(List<decimal>), "Coin Valid Values.xml");
 
                 if (File.Exists(pathDataFile + "Deposits.xml"))
                 {
-                    LoadDepositsIntoXML();
+                    Deposits = (List<List<CoinSet>>)LoadDataFromXML(typeof(List<List<CoinSet>>), "Deposits.xml");
                 }
 
                 if (File.Exists(pathDataFile + "Withdraws.xml"))
                 {
-                    LoadWithdrawsIntoXML();
+                    Withdraws = (List<List<CoinSet>>)LoadDataFromXML(typeof(List<List<CoinSet>>), "Withdraws.xml");
                 }
 
                 if (File.Exists(pathDataFile + "Changes.xml"))
                 {
-                    LoadChangesIntoXML();
+                    Changes = (List<List<CoinSet>>)LoadDataFromXML(typeof(List<List<CoinSet>>), "Changes.xml");
                 }
 
                 Application.Run(new MainForm());
@@ -72,96 +72,24 @@ namespace Desafio_Compuletra
             Withdraws = new List<List<CoinSet>>();
         }
 
-        public static void SaveExchangeMachineToXML()
+        public static void SaveDataToXML(Type type, String fileName, Object obj)
         {
-            XmlSerializer writer = new XmlSerializer(typeof(ExchangeMachine));
+            XmlSerializer writer = new XmlSerializer(type);
             //Salva o arquivo XML na pasta Documentos/Exchange Machine App
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Exchange Machine.xml";
+            String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//" + fileName;
             FileStream file = File.Create(path);
-            writer.Serialize(file, ExchangeMachine);
+            writer.Serialize(file, obj);
             file.Close();
         }
 
-        public static void LoadExchangeMachineIntoXML()
+        public static Object LoadDataFromXML(Type type, String fileName)
         {
-            XmlSerializer reader = new XmlSerializer(typeof(ExchangeMachine));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Exchange Machine.xml";
+            XmlSerializer reader = new XmlSerializer(type);
+            String path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//" + fileName;
             StreamReader file = new StreamReader(path);
-            ExchangeMachine = (ExchangeMachine)reader.Deserialize(file);
+            Object obj = reader.Deserialize(file);
             file.Close();
-
-        }
-
-        public static void SaveCoinValidValuesToXML()
-        {
-            XmlSerializer writer = new XmlSerializer(typeof(List<decimal>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Coin Valid Values.xml";
-            FileStream file = File.Create(path);
-            writer.Serialize(file, CoinValidator.ValidValues);
-            file.Close();
-        }
-
-        public static void LoadCoinValidValuesIntoXML()
-        {
-            XmlSerializer reader = new XmlSerializer(typeof(List<decimal>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Coin Valid Values.xml";
-            StreamReader file = new StreamReader(path);
-            CoinValidator.ValidValues = (List<decimal>)reader.Deserialize(file);
-            file.Close();
-        }
-
-        public static void SaveDepositsToXML()
-        {
-            XmlSerializer writer = new XmlSerializer(typeof(List<List<CoinSet>>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Deposits.xml";
-            FileStream file = File.Create(path);
-            writer.Serialize(file, Deposits);
-            file.Close();
-        }
-
-        public static void LoadDepositsIntoXML()
-        {
-            XmlSerializer reader = new XmlSerializer(typeof(List<List<CoinSet>>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Deposits.xml";
-            StreamReader file = new StreamReader(path);
-            Deposits = (List<List<CoinSet>>)reader.Deserialize(file);
-            file.Close();
-        }
-
-        public static void SaveChangesToXML()
-        {
-            XmlSerializer writer = new XmlSerializer(typeof(List<List<CoinSet>>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Changes.xml";
-            FileStream file = File.Create(path);
-            writer.Serialize(file, Changes);
-            file.Close();
-        }
-
-        public static void LoadChangesIntoXML()
-        {
-            XmlSerializer reader = new XmlSerializer(typeof(List<List<CoinSet>>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Changes.xml";
-            StreamReader file = new StreamReader(path);
-            Changes = (List<List<CoinSet>>)reader.Deserialize(file);
-            file.Close();
-        }
-
-        public static void SaveWithdrawsToXML()
-        {
-            XmlSerializer writer = new XmlSerializer(typeof(List<List<CoinSet>>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Withdraws.xml";
-            FileStream file = File.Create(path);
-            writer.Serialize(file, Withdraws);
-            file.Close();
-        }
-
-        public static void LoadWithdrawsIntoXML()
-        {
-            XmlSerializer reader = new XmlSerializer(typeof(List<List<CoinSet>>));
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//Exchange Machine App//Withdraws.xml";
-            StreamReader file = new StreamReader(path);
-            Withdraws = (List<List<CoinSet>>)reader.Deserialize(file);
-            file.Close();
+            return obj;
         }
     }
 }
