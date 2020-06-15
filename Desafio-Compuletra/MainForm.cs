@@ -15,6 +15,7 @@ namespace Desafio_Compuletra
     public partial class MainForm : Form
     {
         private String currentHelpMessage;
+        private EventHandler currentButton = null;
 
         public MainForm()
         {
@@ -30,15 +31,23 @@ namespace Desafio_Compuletra
         {
             Input.Visible = true;
             Input.Text = "";
+            Input.ReadOnly = false;
             ButtonSubmit.Visible = true;
             ButtonHelp.Visible = true;
+
         }
 
         private void ButtonDeposit_Click(object sender, EventArgs e)
         {
+            if (currentButton != null)
+            {
+                ButtonSubmit.Click -= currentButton;
+            }
+  
             ButtonSubmit.Visible = true;
             ButtonSubmit.Text = "Efetuar Depósito";
-            ButtonSubmit.Click += new EventHandler(SubmitDeposit);
+            currentButton = new EventHandler(SubmitDeposit);
+            ButtonSubmit.Click += currentButton;
 
             currentHelpMessage = "Digite os valores das moedas e as suas respectivas quantidades que deseja depositar, separando-as por quebras de linha. " +
                                  "Utilize o seguinte formato:\r\n" +
@@ -79,6 +88,8 @@ namespace Desafio_Compuletra
                     {
                         MessageBox.Show("Você não digitou corretamente as moedas do depósito. " + currentHelpMessage, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
+
+                    return;
                 }
             }
 
@@ -94,18 +105,25 @@ namespace Desafio_Compuletra
             }
 
             Summary.Text = Program.ExchangeMachine.ToString();
+            Input.Text = "";
         }
 
         private void ButtonWithdraw_Click(object sender, EventArgs e)
         {
+            if (currentButton != null)
+            {
+                ButtonSubmit.Click -= currentButton;
+            }
+
             ButtonSubmit.Visible = true;
             ButtonSubmit.Text = "Efetuar Saque";
-            ButtonSubmit.Click += new EventHandler(SubmitWithdraw);
+            currentButton = new EventHandler(SubmitWithdraw);
+            ButtonSubmit.Click += currentButton;
 
-            currentHelpMessage = "Digite os valores das moedas e as suas respectivas quantidades que deseja depositar, separando-as por quebras de linha. " +
+            currentHelpMessage = "Digite os valores das moedas e as suas respectivas quantidades que deseja sacar, separando-as por quebras de linha. " +
                                  "Utilize o seguinte formato:\r\n" +
                                  "[Valor em centavos] : [Quantidade]\r\n" +
-                                 "Por exemplo, para depositar 4 moedas de 1 real e 2 moedas de 10 centavos, digite:\r\n" +
+                                 "Por exemplo, para sacar 4 moedas de 1 real e 2 moedas de 10 centavos, digite:\r\n" +
                                  "100:4\r\n" +
                                  "10:2";
 
@@ -132,7 +150,8 @@ namespace Desafio_Compuletra
 
                 catch
                 {
-                    MessageBox.Show("Você não digitou corretamente as moedas do depósito. " + currentHelpMessage, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Você não digitou corretamente as moedas do saque. " + currentHelpMessage, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
                 }
             }
 
@@ -147,22 +166,32 @@ namespace Desafio_Compuletra
             {
                 MessageBox.Show(e.ToString(), "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
+            Input.Text = "";
         }
 
         private void ButtonStatus_Click(object sender, EventArgs e)
         {
             ClearInputAndShowButtons();
+            Input.ReadOnly = true;
             Input.AppendText(Program.ExchangeMachine.Status());
         }
 
         private void ButtonChange_Click(object sender, EventArgs e)
         {
+            if (currentButton != null)
+            {
+                ButtonSubmit.Click -= currentButton;
+            }
+
             ButtonSubmit.Visible = true;
             ButtonSubmit.Text = "Gerar Troco";
-            ButtonSubmit.Click += new EventHandler(SubmitChange);
+            currentButton = new EventHandler(SubmitChange);
+            ButtonSubmit.Click += currentButton;
 
             ClearInputAndShowButtons();
-            Input.AppendText("Digite o valor do troco");
+            currentHelpMessage = "Digite o valor do troco";
+            Input.AppendText(currentHelpMessage);
         }
 
         private void SubmitChange(object sender, EventArgs eventArgs)
@@ -196,6 +225,8 @@ namespace Desafio_Compuletra
                 MessageBox.Show("Você não digitou corretamente o valor do troco. Digite apenas números e uma vírgula para separar os " +
                                 "centavos (por exemplo: 0,25)", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+
+            Input.Text = "";
         }
 
         private void ButtonHelp_Click(object sender, EventArgs e)

@@ -19,7 +19,7 @@ namespace Desafio_Compuletra.Exceptions
 
         public override string ToString()
         {
-            return "As moedas devem possuir o mesmo valor (você informou os valores " + Value1 + " e " + Value2 + ")";
+            return "As moedas devem possuir o mesmo valor (você informou os valores " + Value1.ToString("F2") + " e " + Value2.ToString("F2") + ")";
         }
     }
 }

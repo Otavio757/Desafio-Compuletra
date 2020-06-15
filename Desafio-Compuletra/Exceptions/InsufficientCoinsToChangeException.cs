@@ -19,7 +19,7 @@ namespace Desafio_Compuletra.Exceptions
 
         public override string ToString()
         {
-            return "Não há moedas suficientes para o troco de $" + TotalValue + ", faltam $" + MissingValue;
+            return "Não há moedas suficientes para o troco de $" + TotalValue.ToString("F2") + ", faltam $" + MissingValue.ToString("F2");
         }
     }
 }

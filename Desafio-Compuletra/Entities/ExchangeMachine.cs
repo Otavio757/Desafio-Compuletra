@@ -41,7 +41,7 @@ namespace Desafio_Compuletra.Entities
         //As moedas são inseridas em ordem crescente de valor
         public void AddCoins(List<CoinSet> coins)
         {
-            coins.ForEach(delegate (CoinSet cs)
+            foreach (CoinSet cs in coins)
             {
                 int i = coinsSet.BinarySearch(cs);
 
@@ -61,7 +61,7 @@ namespace Desafio_Compuletra.Entities
                 }
 
                 AddCoinsInTheSet(i, cs);
-            });
+            }
         }
 
         //Método auxiliar que realmente insere um conjunto de moedas na máquina
@@ -91,7 +91,7 @@ namespace Desafio_Compuletra.Entities
         {
             List<CoinSet> temp = new List<CoinSet>();
 
-            coins.ForEach(delegate (CoinSet cs)
+            foreach (CoinSet cs in coins)
             {
                 int pos = coinsSet.BinarySearch(cs);
 
@@ -119,7 +119,7 @@ namespace Desafio_Compuletra.Entities
                         throw new InsufficientCoinsToWithdrawException(0, cs.Quantity, cs.Value);
                     }
                 }
-            });
+            }
         }
 
         /*
@@ -174,14 +174,22 @@ namespace Desafio_Compuletra.Entities
 
         public String Status()
         {
-            String s = coinsSet[0].ToString();
-
-            for (int i = 1; i < coinsSet.Count; i++)
+            if (coinsSet.Count > 0)
             {
-                s += "\r\n" + coinsSet[i].ToString();
+                String s = coinsSet[0].ToString();
+
+                for (int i = 1; i < coinsSet.Count; i++)
+                {
+                    s += "\r\n" + coinsSet[i].ToString();
+                }
+
+                return s;
             }
 
-            return s;
+            else
+            {
+                return "A máquina está vazia";
+            }
         }
     }
 }

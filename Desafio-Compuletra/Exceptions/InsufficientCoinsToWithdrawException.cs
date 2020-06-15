@@ -21,7 +21,7 @@ namespace Desafio_Compuletra.Exceptions
 
         public override string ToString()
         {
-            return "Houve uma tentativa de saque de " + IntendedWithdraw + " moedas de $" + CoinValue + ", porém há somente " + CoinsAvailable + " moedas desse valor";
+            return "Houve uma tentativa de saque de " + IntendedWithdraw + " moedas de $" + CoinValue.ToString("F2") + ", porém há somente " + CoinsAvailable + " moedas desse valor";
         }
     }
 }

@@ -86,7 +86,7 @@
             // 
             this.Input.Font = new System.Drawing.Font("Segoe UI Light", 14F);
             this.Input.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.Input.Location = new System.Drawing.Point(348, 22);
+            this.Input.Location = new System.Drawing.Point(382, 22);
             this.Input.Multiline = true;
             this.Input.Name = "Input";
             this.Input.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -99,7 +99,7 @@
             // 
             this.Summary.AutoSize = true;
             this.Summary.Font = new System.Drawing.Font("Segoe UI Light", 18F);
-            this.Summary.Location = new System.Drawing.Point(17, 72);
+            this.Summary.Location = new System.Drawing.Point(9, 72);
             this.Summary.Name = "Summary";
             this.Summary.Size = new System.Drawing.Size(315, 32);
             this.Summary.TabIndex = 11;
@@ -119,7 +119,7 @@
             // ButtonSubmit
             // 
             this.ButtonSubmit.Font = new System.Drawing.Font("Segoe UI Light", 14F);
-            this.ButtonSubmit.Location = new System.Drawing.Point(405, 251);
+            this.ButtonSubmit.Location = new System.Drawing.Point(439, 251);
             this.ButtonSubmit.Name = "ButtonSubmit";
             this.ButtonSubmit.Size = new System.Drawing.Size(158, 49);
             this.ButtonSubmit.TabIndex = 15;
@@ -130,7 +130,7 @@
             // ButtonHelp
             // 
             this.ButtonHelp.Font = new System.Drawing.Font("Segoe UI Light", 14F);
-            this.ButtonHelp.Location = new System.Drawing.Point(574, 251);
+            this.ButtonHelp.Location = new System.Drawing.Point(608, 251);
             this.ButtonHelp.Name = "ButtonHelp";
             this.ButtonHelp.Size = new System.Drawing.Size(158, 49);
             this.ButtonHelp.TabIndex = 16;
@@ -143,7 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(807, 312);
+            this.ClientSize = new System.Drawing.Size(837, 312);
             this.Controls.Add(this.ButtonHelp);
             this.Controls.Add(this.ButtonSubmit);
             this.Controls.Add(this.ButtonStatus);
